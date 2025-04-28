@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Page Summarizer",
+  "version": "0.1.0",
+  "description": "Summarize any webpage directly in a side panel.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "ext-icon.png",
+      "32": "ext-icon.png",
+      "48": "ext-icon.png",
+      "128": "ext-icon.png"
+    }
+  },
+  "icons": {
+    "16": "ext-icon.png",
+    "32": "ext-icon.png",
+    "48": "ext-icon.png",
+    "128": "ext-icon.png"
+  }
+}
