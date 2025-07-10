@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
     const [summary, setSummary] = useState("Loading summary...");
@@ -13,6 +13,18 @@ const Sidebar = () => {
         }
     };
 
+    useEffect(() => {
+        const listener: Parameters<typeof chrome.runtime.onMessage.addListener>[0] = (message) => {
+            if (message.type === "SUMMARY_RESULT") {
+                console.log("✅ Sidebar received summary:", message.payload);
+                setSummary(message.payload || "No summary available.");
+            }
+        };
+
+        chrome.runtime.onMessage.addListener(listener);
+        return () => chrome.runtime.onMessage.removeListener(listener);
+    }, []);
+
     const handleRegenerate = () => {
         setSummary("🔄 Regenerating summary...");
         setTimeout(() => setSummary("This is a regenerated summary of the page."), 1000);
@@ -23,7 +35,9 @@ const Sidebar = () => {
             <h1 className="text-2xl font-bold mb-4 flex items-center gap-2">📄 Page Summarizer</h1>
 
             <h2 className="font-semibold mb-2 text-gray-700">🔎 Summary:</h2>
-            <div className="flex-1 overflow-auto text-sm bg-gray-100 p-2 rounded">{summary}</div>
+            <div className="flex-1 overflow-auto text-sm bg-gray-100 p-2 rounded whitespace-pre-wrap">
+                {summary}
+            </div>
 
             <div className="mt-4 flex gap-2">
                 <button
