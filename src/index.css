@@ -1,3 +1,134 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+    width: 340px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 56px;
+    height: 56px;
+}
+
+.brand-text h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 2px 0 0;
+}
+
+.popup-body {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #111827;
+    border-bottom: 2px solid #2563eb;
+    width: fit-content;
+    padding: 0 6px 4px 6px;
+}
+
+.instructions {
+    padding-left: 8px;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #374151;
+}
+
+.instructions li + li {
+    margin-top: 8px;
+}
+
+.instructions strong {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.instructions em {
+    color: #2563eb;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.popup-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.popup-footer a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.popup-footer a:hover {
+    text-decoration: underline;
+}
+
+.popup-footer p span {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #111827;
+        color: #f3f4f6;
+    }
+
+    .popup-header h1,
+    .section-title {
+        color: #f9fafb;
+    }
+
+    .subtitle {
+        color: #9ca3af;
+    }
+
+    .instructions {
+        color: #d1d5db;
+    }
+
+    .instructions strong,
+    .instructions em {
+        color: #60a5fa;
+    }
+
+    .popup-footer {
+        color: #9ca3af;
+    }
+
+    .popup-footer a {
+        color: #ffffff;
+    }
+
+    .popup-footer a:hover {
+        color: #fefefe;
+    }
+}

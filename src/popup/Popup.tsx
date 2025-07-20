@@ -1,16 +1,35 @@
 
 const Popup = () => {
     return (
-        <div className="w-72 p-4 bg-white text-gray-800">
-            <h1 className="text-xl font-bold mb-2 flex items-center gap-2">
-                📄 Page Summarizer
-            </h1>
-            <p className="text-sm mb-4">
-                Open a webpage to use the summarizer side panel.
-            </p>
-            <p className="text-xs text-gray-500">
-                Click the extension icon on any webpage!
-            </p>
+        <div className="popup">
+            <header className="popup-header">
+                <img src="../../public/logo.png" alt="QuickRead Logo" className="logo"/>
+                <div className="brand-text">
+                    <h1>QuickRead</h1>
+                    <p className="subtitle">Your instant webpage summarizer</p>
+                </div>
+            </header>
+
+            <section className="popup-body">
+                <h2 className="section-title">How to Use QuickRead</h2>
+                <ol className="instructions">
+                    <li> Visit any text-based webpage.</li>
+                    <li>️ Click the <strong>QuickRead</strong> icon.</li>
+                    <li> Right-click the icon and choose <em>“Open Side Panel”</em>.</li>
+                    <li> Read the text summary.</li>
+                </ol>
+            </section>
+
+            <footer className="popup-footer">
+                <p className="note">
+                    <span>
+                        Need help?
+                    </span>
+                    <a href="https://github.com/gorazdbiskoski/Page-Summarization-Google-Extension" target="_blank">
+                        View Docs
+                    </a>
+                </p>
+            </footer>
         </div>
     );
 }
