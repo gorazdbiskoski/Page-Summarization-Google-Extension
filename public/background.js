@@ -2,6 +2,7 @@ chrome.runtime.onInstalled.addListener(() => {
     console.log("Page Summarizer Extension Installed!")
 });
 
+// Add API key here before running
 const OPENAI_API_KEY = "API_KEY";
 
 chrome.runtime.onMessage.addListener(async (message) => {
