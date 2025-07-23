@@ -21,3 +21,16 @@ chrome.runtime.sendMessage({
     type: "PAGE_TEXT",
     payload: readableText,
 });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "REGENERATE_SUMMARY") {
+        const readableText = extractReadableArticle();
+
+        console.log("Regenerating summary with readable text:", readableText);
+
+        chrome.runtime.sendMessage({
+            type: "PAGE_TEXT",
+            payload: readableText,
+        });
+    }
+});

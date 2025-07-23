@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const Sidebar = () => {
     const [summary, setSummary] = useState("Loading summary...");
+    const [animationIntervalId, setAnimationIntervalId] = useState<NodeJS.Timeout | null>(null);
 
     const handleCopy = async () => {
         try {
@@ -16,18 +17,44 @@ const Sidebar = () => {
     useEffect(() => {
         const listener: Parameters<typeof chrome.runtime.onMessage.addListener>[0] = (message) => {
             if (message.type === "SUMMARY_RESULT") {
-                console.log("✅ Sidebar received summary:", message.payload);
+                console.log("Sidebar received summary:", message.payload);
+                setSummary(message.payload || "No summary available.");
+
+                if (animationIntervalId) {
+                    clearInterval(animationIntervalId);
+                    setAnimationIntervalId(null);
+                }
+
                 setSummary(message.payload || "No summary available.");
             }
         };
 
         chrome.runtime.onMessage.addListener(listener);
         return () => chrome.runtime.onMessage.removeListener(listener);
-    }, []);
+    }, [animationIntervalId]);
 
     const handleRegenerate = () => {
-        setSummary("🔄 Regenerating summary...");
-        setTimeout(() => setSummary("This is a regenerated summary of the page."), 1000);
+        let dotCount = 0;
+        const baseText = "Regenerating summary";
+
+        // Start animation loop
+        const intervalId = setInterval(() => {
+            dotCount = (dotCount + 1) % 4; // cycles through 0,1,2,3
+            const dots = ".".repeat(dotCount);
+            setSummary(`${baseText}${dots}`);
+        }, 500);
+
+        setAnimationIntervalId(intervalId);
+
+        // Send message to content script to regenerate summary
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const activeTab = tabs[0];
+            if (activeTab?.id) {
+                chrome.tabs.sendMessage(activeTab.id, {
+                    type: "REGENERATE_SUMMARY",
+                });
+            }
+        });
     };
 
     return (
